@@ -84,6 +84,7 @@ class AuthorizationSupport {
 
     new ArrayList<>(lbItems).each { LoadBalancerProvider.Item lbItem ->
       if(!filterLoadBalancerProviderItem(lbItem)) {
+        log.debug("RPERKINS: Removing item ${lbItem.name}")
         lbItems.remove(lbItem)
       }
     }
@@ -97,6 +98,7 @@ class AuthorizationSupport {
 
     String application = Names.parseName(lbItem.name).app
     if (!application) {
+      log.debug("RPERKINS: ${lbItem.name} has no application")
       return false
     }
 
