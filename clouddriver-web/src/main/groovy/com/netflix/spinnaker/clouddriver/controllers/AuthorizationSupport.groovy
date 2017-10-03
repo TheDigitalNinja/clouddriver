@@ -108,11 +108,12 @@ class AuthorizationSupport {
     }
 
     Authentication auth = SecurityContextHolder.context.authentication;
-
+    /*
     if (!permissionEvaluator.hasPermission(auth, application, 'APPLICATION', 'READ')) {
       log.debug("RPERKINS: ${application} doesnt have permission")
       return false
     }
+    */
 
     new ArrayList<>(lbItem.byAccounts).each { LoadBalancerProvider.ByAccount account ->
       if (!permissionEvaluator.hasPermission(auth, account.name, 'ACCOUNT', 'READ')) {
