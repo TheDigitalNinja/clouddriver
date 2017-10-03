@@ -73,6 +73,7 @@ class AuthorizationSupport {
       String account = propertySource.account ?: propertySource.accountName
 
       if (account && !permissionEvaluator.hasPermission(auth, account, 'ACCOUNT', 'READ')) {
+        log.debug("RPERKINS: removing item for ${account.name}")
         items.remove(item)
       }
     }
@@ -81,6 +82,7 @@ class AuthorizationSupport {
 
   boolean filterLoadBalancerProviderItems(List<LoadBalancerProvider.Item> lbItems) {
     if (!lbItems) {
+      log.debug("RPERKINS: no lbItem 1")
       return true
     }
 
@@ -95,6 +97,7 @@ class AuthorizationSupport {
 
   boolean filterLoadBalancerProviderItem(LoadBalancerProvider.Item lbItem) {
     if (!lbItem) {
+      log.debug("RPERKINS: no lbItem 2")
       return false
     }
 
@@ -107,17 +110,20 @@ class AuthorizationSupport {
     Authentication auth = SecurityContextHolder.context.authentication;
 
     if (!permissionEvaluator.hasPermission(auth, application, 'APPLICATION', 'READ')) {
+      log.debug("RPERKINS: ${application} doesnt have permission")
       return false
     }
 
     new ArrayList<>(lbItem.byAccounts).each { LoadBalancerProvider.ByAccount account ->
       if (!permissionEvaluator.hasPermission(auth, account.name, 'ACCOUNT', 'READ')) {
+        log.debug("RPERKINS: ${account.name} doesnt have permission")
         lbItem.byAccounts.remove(account)
       }
     }
 
     // It'd be weird if there was a load balancer with just name and an empty accounts field.
     if (!lbItem.byAccounts) {
+      log.debug("RPERKINS: I guess its weird then for ${lbItem.name}")
       return false
     }
     return true
