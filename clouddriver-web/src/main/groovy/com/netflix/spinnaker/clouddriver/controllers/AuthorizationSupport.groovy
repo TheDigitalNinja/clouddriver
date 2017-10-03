@@ -98,7 +98,7 @@ class AuthorizationSupport {
 
     String application = Names.parseName(lbItem.name).app
     if (!application) {
-      log.debug("${lbItem.name} in ${account} has no associated application")
+      log.debug("${lbItem.name} has no associated application")
       return false
     }
 
