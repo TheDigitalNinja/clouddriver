@@ -28,6 +28,7 @@ import groovy.util.logging.Slf4j
 /**
  * Support for controllers requiring authorization checks from Fiat.
  */
+@Slf4j
 @Component
 class AuthorizationSupport {
 
