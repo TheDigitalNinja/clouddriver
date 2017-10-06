@@ -102,9 +102,11 @@ class AuthorizationSupport {
 
     Authentication auth = SecurityContextHolder.context.authentication;
 
+    /*
     if (!permissionEvaluator.hasPermission(auth, application, 'APPLICATION', 'READ')) {
       return false
     }
+    */
 
     new ArrayList<>(lbItem.byAccounts).each { LoadBalancerProvider.ByAccount account ->
       if (!permissionEvaluator.hasPermission(auth, account.name, 'ACCOUNT', 'READ')) {
